@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>login-page</title>
+
+<style>
+
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+}
+body{
+	padding:0px 20px ;
+    margin:20px auto;
+	text-align:left;
+	font-family:'Poppins', sans-serif;
+	
+}
+
+#fulldiv{
+	margin:150px auto;
+	width:330px;
+	box-shadow:0px 0px 5px 5px #ebe5e5d1;
+	padding:25px;
+	border-radius:5px;
+	background:white;
+}
+h1{
+	background: linear-gradient(to right, #f74434 ,#ff3375);
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+    font-size:30px;
+	padding-bottom:10px;
+	font-weight:600;
+}
+.world{
+	padding-bottom:20px;
+	font-size:12px;
+	font-weight:600;
+	color:#575757;
+}
+
+.passwordboxin{
+	font-size:16px;
+	padding:15px;
+	width:100%;
+	border:2px solid lightgray;
+	margin-bottom:20px;
+	border-radius:5px;
+	position:relative;
+	font-weight:500;
+}
+.passwordbox{
+	
+}
+.but1{
+	color:#1064be;
+	margin-bottom:20px;
+	background-color:white;
+	border:none;
+	font-weight:600;
+	padding-bottom:5px;
+}
+#but2{
+	width:100%;
+	height:50px;
+	border-radius:50px;
+	background: linear-gradient(to right, #f74434 ,#ff3375);
+	color:white;
+	border:none;
+	font-weight:600;
+}
+h4{
+	text-align:center;
+	padding:20px;
+}
+#but3{
+	width:100%;
+	height:40px;
+	border-radius:50px;
+	background-color:white;
+	border:1px solid gray;
+	color:#888888;
+	font-weight:600;
+}
+.span11{
+	position:relative;
+}
+.span1{
+	color:#f74434;
+	position:absolute;
+	top:18px;
+	right:13px;
+	tranform:translate(-50% , -50%);
+	font-size:14px;	
+	font-weight:600;
+}
+.or{
+	position:relative;
+	padding:10px 0px;
+}
+.div{
+	height:1px;
+	background-color:#ccc;
+	margin:10px 0px;
+}
+
+.span{
+	font-size:14px;
+	position:absolute;
+	top:20%;
+	left:43%;
+	tranform:translate(-50% , -50%);
+	background-color:white;
+	display:block;
+	padding:5px 10px;
+	color:#999;
+}
+
+.invalid-input{
+	display:block !important;
+}
+.error-msg{
+	color:red;
+	display:none;
+	margin-bottom:10px;
+}
+.error-msg2{
+	color:red;
+	display:none;
+	margin-bottom:10px;
+}
+.top-error{
+	color:red;
+	display:none;
+	margin-bottom:10px;
+}
+</style>
+</head>
+<body>	
+<form id="fulldiv">
+	<div class="header">
+		<h1>Sign in</h1>
+		<p class="top-error">incorect user..!</p>
+	</div>
+	<div class="passwordbox">
+		<input type="email" name="useremail" placeholder="Email or Phone" class="passwordboxin eMAIL" id="mailId">
+		<p class="error-msg">Please Enter email Id..!</p>
+	</div>
+	<div class="passwordbox span11">
+		<input type="password" name="userpassword" placeholder="password" class="passwordboxin pasWRD" id="userpassword"><span class="span1" id="span1">show</span></input>
+		<p class="error-msg2">Please Enter corect password..!</p>
+	</div>
+	<div class="signin">
+		<button type="button" onclick="signIn(event)" id="but2">Sign in</button>
+	</div>
+</form>
+
+
+<script>
+	let singnInBtn = document.getElementById("but2")
+	let mailget = document.getElementsByClassName("passwordboxin");
+	let mailId = document.getElementById ("mailId");
+	let password = document.getElementById ("userpassword");
+
+	
+	let array = [];
+	function signIn(event){
+	
+		let isValid;
+		for(let x=0; x < mailget.length; x++){
+			isValid = 0;
+			if(mailget[x].value === ""){
+				mailget[x].parentNode.getElementsByTagName("p")[0].classList.add("invalid-input");
+				isValid++;
+			}
+			else{
+				mailget[x].parentNode.getElementsByTagName("p")[0].classList.remove("invalid-input");
+			}
+		}
+	
+	if(isValid == 0){
+			if(password.value.length < 6 ){
+				document.getElementsByClassName("error-msg2")[0].classList.add("invalid-input");
+			}
+			else{
+				document.getElementsByClassName("error-msg2")[0].classList.remove("invalid-input");
+			}
+		}
+	 
+	 
+	 let userObject = { 
+			id:Math.random().toString(),
+			mailId: mailId.value,
+			password:password.value
+		}
+		console.log(array)
+	
+		let defaultuser = [{
+			id:1111,
+			mailId:"dhanush.sithananthan@gmail.com",
+			password:"Sith@2000"
+		},
+		{ 
+			id:2222,
+			mailId:"soniya@gmail.com",
+			password:"fed062022"
+		},
+		{
+			id:3333,
+			mailId:"akash@gmail.com",
+			password:"Fed062023"
+		},
+		{
+			id:4444,
+			mailId:"anu@gmail.com",
+			password:"fed062024"
+		}];
+	
+		for (let x=0; x < defaultuser.length; x++){
+		
+			if (userObject.mailId == defaultuser[x].mailId){
+				array.push(userObject.mailId);
+			}else if(userObject.mailId == defaultuser[x].mailId){
+				document.getElementsByClassName("error-msg")[0].classList.toggle("invalid-input");
+			}
+			
+			if(userObject.password == defaultuser[x].password){
+				array.push(userObject.password);
+				var userid = array.push(defaultuser[x].id)
+				localStorage.setItem("userid",defaultuser[x].id);
+			}else if(userObject.password == defaultuser[x].password){
+				document.getElementsByClassName("error-msg2")[0].classList.toggle("invalid-input");
+			}
+			
+			else if(array.length == 1){
+				document.getElementsByClassName("top-error")[0].classList.add("invalid-input");
+				array.length = 0;
+			}else if(array.length == 3){
+				document.getElementsByClassName("top-error")[0].classList.remove("invalid-input");
+				
+				return logIn(event);
+				
+			}
+			
+		
+		}
+		
+		function logIn(event){
+			event.preventDefault();
+			localStorage.setItem("signIn",true);
+			window.location.replace("index.html");
+		}
+	} 
+	
+	
+	 let elefullform = document.getElementById("fulldiv");
+ elefullform.addEventListener("submit", function(event){
+	event.preventDefault();
+	signIn();
+ });
+
+	
+let showBtn = document.getElementById("span1");
+let passwordShow = document.getElementById("userpassword");
+
+showBtn.addEventListener("click",function(event){
+	if (passwordShow.type == "password"){
+    passwordShow.setAttribute("type", "text");
+  } else {
+    passwordShow.setAttribute("type", "password");
+  }
+})
+
+
+</script>
+
+</body>
+</html>
